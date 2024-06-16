@@ -623,7 +623,16 @@ ffg.Parent = namebillboard
 function RemoveOutlines(part)
 	part.TopSurface, part.BottomSurface, part.LeftSurface, part.RightSurface, part.FrontSurface, part.BackSurface = 10, 10, 10, 10, 10, 10
 end
-local Create = LoadLibrary("RbxUtility").Create
+Create = function(Obj)
+		local Ins = Instance.new(Obj);
+		return function(Property)
+			if Property then else return Ins end
+			for Property_,Value_ in next, Property do
+				Ins[Property_] = Value_;
+			end;
+			return Ins;
+		end;
+	end;
 
 CFuncs = {	
 	["Part"] = {
