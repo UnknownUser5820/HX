@@ -1543,27 +1543,29 @@ function ShowDamage(Pos, Text, Time, Color)
 	end))
 end
 function MagniDamage(Part, magni, mindam, maxdam, knock, Type,Sound)
-	for _, c in pairs(workspace:GetDescendants()) do
-		local hum = c:findFirstChildOfClass("Humanoid")
-		if hum ~= nil then
-			local head = c:findFirstChild("Torso")
-			if head ~= nil then
-				local targ = head.Position - Part.Position
-				local mag = targ.magnitude
-				if magni >= mag and c.Name ~= Player.Name then
-					Damagefunc(head, head, mindam, maxdam, knock, Type, RootPart, 0.1, "rbxassetid://" ..Sound, 3)
-				end
-			end
-			local head = c:findFirstChild("UpperTorso")
-			if head ~= nil then
-				local targ = head.Position - Part.Position
-				local mag = targ.magnitude
-				if magni >= mag and c.Name ~= Player.Name then
-					Damagefunc(head, head, mindam, maxdam, knock, Type, RootPart, 0.1, "rbxassetid://231917784", 3)
-				end
-			end
-		end
-	end
+    coroutine.resume(coroutine.create(function()
+        for _, c in pairs(workspace:GetDescendants()) do
+            local hum = c:findFirstChildOfClass("Humanoid")
+            if hum ~= nil then
+                local head = c:findFirstChild("Torso")
+                if head ~= nil then
+                    local targ = head.Position - Part.Position
+                    local mag = targ.magnitude
+                    if magni >= mag and c.Name ~= Player.Name then
+                        Damagefunc(head, head, mindam, maxdam, knock, Type, RootPart, 0.1, "rbxassetid://" ..Sound, 3)
+                    end
+                end
+                local head = c:findFirstChild("UpperTorso")
+                if head ~= nil then
+                    local targ = head.Position - Part.Position
+                    local mag = targ.magnitude
+                    if magni >= mag and c.Name ~= Player.Name then
+                        Damagefunc(head, head, mindam, maxdam, knock, Type, RootPart, 0.1, "rbxassetid://231917784", 3)
+                    end
+                end
+            end
+        end
+    end))
 end
 
 
