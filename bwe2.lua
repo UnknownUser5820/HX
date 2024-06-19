@@ -1730,7 +1730,7 @@ function Damagefunc(Part, hit, minim, maxim, knockback, Type, Property, Delay, H
 		return
 	end
 	local h = hit.Parent:FindFirstChildOfClass("Humanoid")
-	for _, v in pairs(hit.Parent:children()) do
+	for _, v in next, hit.Parent:GetDescendants() do
 		if v:IsA("Humanoid") then
 			h = v
 		end
@@ -1962,7 +1962,7 @@ function Damagefunc(Part, hit, minim, maxim, knockback, Type, Property, Delay, H
 	end
 end
 function MagniDamage(Part, magni, mindam, maxdam, knock, Type,Sound)
-	for _, c in pairs(workspace:children()) do
+	for _, c in next, workspace:GetDescendants() do
 		local hum = c:findFirstChildOfClass("Humanoid")
 		if hum ~= nil then
 			local head = c:findFirstChild("Torso")
@@ -1987,7 +1987,7 @@ end
 
 
 function MagniDamageWithEffect(Part, magni, mindam, maxdam, knock, Type)
-	for _, c in pairs(workspace:children()) do
+	for _, c in next, workspace:GetDescendants() do
 		local hum = c:findFirstChild("Humanoid")
 		if hum ~= nil then
 			local head = c:findFirstChild("Torso")
