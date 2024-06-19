@@ -675,10 +675,19 @@ massv.ImageTransparency = 1
 massv.Position = UDim2.new(0.5,-800,0.5,-800)
 
 
+Create = function(Obj)
+	local Ins = Instance.new(Obj);
+	return function(Property)
+		if Property then else return Ins end
+		for Property_,Value_ in next, Property do
+			Ins[Property_] = Value_;
+		end;
+		return Ins;
+	end;
+end;
 
-
-local Create = LoadLibrary("RbxUtility").Create
-create=LoadLibrary("RbxUtility").Create
+--local Create = LoadLibrary("RbxUtility").Create
+create=Create
 
 
 local NSn=NumberSequence.new
