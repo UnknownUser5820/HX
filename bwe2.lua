@@ -1730,7 +1730,7 @@ function Damagefunc(Part, hit, minim, maxim, knockback, Type, Property, Delay, H
 		return
 	end
 	local h = hit.Parent:FindFirstChildOfClass("Humanoid")
-	for _, v in next, hit.Parent:GetDescendants() do
+	for _, v in pairs(hit.Parent:GetDescendants()) do
 		if v:IsA("Humanoid") then
 			h = v
 		end
@@ -1962,7 +1962,8 @@ function Damagefunc(Part, hit, minim, maxim, knockback, Type, Property, Delay, H
 	end
 end
 function MagniDamage(Part, magni, mindam, maxdam, knock, Type,Sound)
-	for _, c in next, workspace:GetDescendants() do
+    coroutine.resume(coroutine.create(function()
+        for _, c in pairs(workspace:GetDescendants()) do
 		local hum = c:findFirstChildOfClass("Humanoid")
 		if hum ~= nil then
 			local head = c:findFirstChild("Torso")
@@ -1983,24 +1984,27 @@ function MagniDamage(Part, magni, mindam, maxdam, knock, Type,Sound)
 			end
 		end
 	end
+end))
 end
 
 
 function MagniDamageWithEffect(Part, magni, mindam, maxdam, knock, Type)
-	for _, c in next, workspace:GetDescendants() do
-		local hum = c:findFirstChild("Humanoid")
-		if hum ~= nil then
-			local head = c:findFirstChild("Torso")
-			if head ~= nil then
-				local targ = head.Position - Part.Position
-				local mag = targ.magnitude
-				if magni >= mag and c.Name ~= Player.Name then
-					MagicBlock(BrickColor.new("Pastel light blue"),head.CFrame,5,5,5,1,1,1,0.05)
-					Damagefunc(head, head, mindam, maxdam, knock, Type, RootPart, 0.1, "rbxassetid://231917784", 1)
-				end
-			end
-		end
-	end
+    coroutine.resume(coroutine.create(function()
+        for _, c in pairs(workspace:GetDescendants()) do
+            local hum = c:findFirstChild("Humanoid")
+            if hum ~= nil then
+                local head = c:findFirstChild("Torso")
+                if head ~= nil then
+                    local targ = head.Position - Part.Position
+                    local mag = targ.magnitude
+                    if magni >= mag and c.Name ~= Player.Name then
+                        MagicBlock(BrickColor.new("Pastel light blue"),head.CFrame,5,5,5,1,1,1,0.05)
+                        Damagefunc(head, head, mindam, maxdam, knock, Type, RootPart, 0.1, "rbxassetid://231917784", 1)
+                    end
+                end
+            end
+        end
+    end))
 end
 
 function rayCast(Pos, Dir, Max, Ignore)  -- Origin Position , Direction, MaxDistance , IgnoreDescendants
